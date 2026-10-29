@@ -1,148 +1,1368 @@
-<!doctype html>
-<html lang="en">
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Portfolio - Bootstrap </title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Copy Center  | ملازم ومحاضرات</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+
+    <!-- Arabic Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg: #080b16;
+            --surface: rgba(19, 25, 48, 0.76);
+            --border: rgba(255, 255, 255, 0.09);
+            --text: #f4f5ff;
+            --muted: #9ba5c3;
+            --blue: #5b8cff;
+            --purple: #a16cff;
+            --cyan: #48e1ff;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            overflow-x: hidden;
+            color: var(--text);
+            background:
+                radial-gradient(ellipse at 10% 15%, rgba(91, 140, 255, .13), transparent 35%),
+                radial-gradient(ellipse at 90% 45%, rgba(161, 108, 255, .12), transparent 35%),
+                var(--bg);
+            font-family: 'Cairo', sans-serif;
+        }
+
+        button, a {
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        /* Background effects */
+        .background-grid {
+            position: fixed;
+            inset: 0;
+            z-index: -2;
+            pointer-events: none;
+            background-image:
+                linear-gradient(rgba(255,255,255,.018) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,.018) 1px, transparent 1px);
+            background-size: 45px 45px;
+            mask-image: linear-gradient(to bottom, black, transparent 90%);
+        }
+
+        .orb {
+            position: fixed;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            filter: blur(100px);
+            opacity: .18;
+            z-index: -1;
+            pointer-events: none;
+            animation: floatOrb 12s ease-in-out infinite alternate;
+        }
+
+        .orb-one {
+            top: 10%;
+            right: -120px;
+            background: #4169ff;
+        }
+
+        .orb-two {
+            bottom: 5%;
+            left: -120px;
+            background: #9b4dff;
+            animation-delay: -5s;
+        }
+
+        @keyframes floatOrb {
+            from { transform: translateY(-20px) scale(.9); }
+            to { transform: translateY(40px) scale(1.15); }
+        }
+
+        /* Navbar */
+        .navbar {
+            padding: 18px 0;
+            background: rgba(8, 11, 22, .75);
+            backdrop-filter: blur(18px);
+            border-bottom: 1px solid rgba(255,255,255,.06);
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: white;
+            text-decoration: none;
+            font-size: 17px;
+            font-weight: 800;
+        }
+
+        .brand-icon {
+            width: 43px;
+            height: 43px;
+            display: grid;
+            place-items: center;
+            border-radius: 14px;
+            background: linear-gradient(135deg, var(--blue), var(--purple));
+            box-shadow: 0 0 25px rgba(91,140,255,.25);
+            font-size: 21px;
+        }
+
+        .navbar-note {
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        /* Hero */
+        .hero {
+            position: relative;
+            padding: 75px 0 35px;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 9px 15px;
+            border: 1px solid rgba(91,140,255,.3);
+            border-radius: 50px;
+            background: rgba(91,140,255,.09);
+            color: #b8caff;
+            font-size: 13px;
+            margin-bottom: 22px;
+        }
+
+        .status-dot {
+            width: 7px;
+            height: 7px;
+            background: #55e6ad;
+            border-radius: 50%;
+            box-shadow: 0 0 12px #55e6ad;
+        }
+
+        .hero h1 {
+            font-size: clamp(32px, 5vw, 56px);
+            font-weight: 900;
+            line-height: 1.45;
+            letter-spacing: -.8px;
+        }
+
+        .gradient-text {
+            background: linear-gradient(90deg, #77a7ff, #b28aff, #5de5ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .hero-description {
+            max-width: 570px;
+            margin: 18px auto 0;
+            color: var(--muted);
+            line-height: 2;
+            font-size: 15px;
+        }
+
+        .hero-visual {
+            position: relative;
+            width: 170px;
+            height: 170px;
+            margin: 35px auto 10px;
+            display: grid;
+            place-items: center;
+        }
+
+        .hero-visual::before,
+        .hero-visual::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            border: 1px solid rgba(91,140,255,.25);
+            border-radius: 38%;
+            transform: rotate(25deg);
+            animation: rotateShape 18s linear infinite;
+        }
+
+        .hero-visual::after {
+            inset: 13px;
+            border-color: rgba(161,108,255,.3);
+            transform: rotate(-25deg);
+            animation-direction: reverse;
+        }
+
+        @keyframes rotateShape {
+            to { transform: rotate(385deg); }
+        }
+
+        .hero-book {
+            position: relative;
+            z-index: 2;
+            width: 105px;
+            height: 120px;
+            display: grid;
+            place-items: center;
+            border: 1px solid rgba(255,255,255,.22);
+            border-radius: 13px 18px 18px 13px;
+            background: linear-gradient(140deg, #315ce0, #7347c7);
+            box-shadow: 0 18px 50px rgba(91,100,255,.3),
+                        inset 5px 0 0 rgba(255,255,255,.08);
+            transform: perspective(500px) rotateY(-12deg);
+            animation: bookFloat 4s ease-in-out infinite;
+        }
+
+        .hero-book i {
+            font-size: 46px;
+            color: white;
+        }
+
+        @keyframes bookFloat {
+            0%, 100% { transform: perspective(500px) rotateY(-12deg) translateY(0); }
+            50% { transform: perspective(500px) rotateY(-12deg) translateY(-12px); }
+        }
+
+        /* Main container */
+        .main-content {
+            padding: 25px 0 75px;
+        }
+
+        .selection-panel {
+            max-width: 960px;
+            margin: auto;
+            padding: clamp(20px, 4vw, 38px);
+            border: 1px solid var(--border);
+            border-radius: 28px;
+            background: linear-gradient(145deg, rgba(20,26,49,.88), rgba(12,16,33,.9));
+            box-shadow: 0 30px 100px rgba(0,0,0,.22);
+            backdrop-filter: blur(20px);
+        }
+
+        .panel-heading {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 28px;
+        }
+
+        .heading-icon {
+            flex-shrink: 0;
+            width: 49px;
+            height: 49px;
+            display: grid;
+            place-items: center;
+            border: 1px solid rgba(91,140,255,.25);
+            border-radius: 16px;
+            background: rgba(91,140,255,.12);
+            color: #8db1ff;
+            font-size: 23px;
+        }
+
+        .panel-heading h2 {
+            font-size: 21px;
+            font-weight: 800;
+            margin: 0 0 4px;
+        }
+
+        .panel-heading p {
+            margin: 0;
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        /* Progress */
+        .progress-area {
+            margin-bottom: 35px;
+        }
+
+        .progress-labels {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            margin-bottom: 12px;
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        .progress-track {
+            height: 6px;
+            overflow: hidden;
+            border-radius: 20px;
+            background: rgba(255,255,255,.07);
+        }
+
+        .progress-fill {
+            width: 0%;
+            height: 100%;
+            border-radius: inherit;
+            background: linear-gradient(90deg, var(--blue), var(--purple), var(--cyan));
+            box-shadow: 0 0 15px rgba(91,140,255,.55);
+            transition: width .45s ease;
+        }
+
+        /* Sections */
+        .step-section {
+            margin-bottom: 34px;
+            animation: fadeUp .5s ease both;
+        }
+
+        .step-title {
+            display: flex;
+            align-items: center;
+            gap: 11px;
+            margin-bottom: 16px;
+        }
+
+        .step-number {
+            width: 32px;
+            height: 32px;
+            display: grid;
+            place-items: center;
+            border-radius: 10px;
+            background: rgba(91,140,255,.14);
+            border: 1px solid rgba(91,140,255,.25);
+            color: #a9c2ff;
+            font-size: 13px;
+            font-weight: 800;
+        }
+
+        .step-title h3 {
+            margin: 0;
+            font-size: 16px;
+            font-weight: 800;
+        }
+
+        .step-title small {
+            color: var(--muted);
+            font-size: 12px;
+            margin-right: auto;
+        }
+
+        /* Selection cards */
+        .selection-card {
+            position: relative;
+            width: 100%;
+            min-height: 115px;
+            padding: 18px 12px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            color: var(--text);
+            text-align: center;
+            border: 1px solid var(--border);
+            border-radius: 19px;
+            background: rgba(255,255,255,.025);
+            transition: transform .25s ease, border-color .25s ease,
+                        background .25s ease, box-shadow .25s ease;
+            cursor: pointer;
+            overflow: hidden;
+        }
+
+        .selection-card::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            background: radial-gradient(circle at top, rgba(91,140,255,.18), transparent 75%);
+            transition: opacity .25s ease;
+            pointer-events: none;
+        }
+
+        .selection-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(113,151,255,.5);
+            box-shadow: 0 12px 30px rgba(0,0,0,.15);
+        }
+
+        .selection-card:hover::before,
+        .selection-card.active::before {
+            opacity: 1;
+        }
+
+        .selection-card.active {
+            border-color: var(--blue);
+            background: rgba(91,140,255,.1);
+            box-shadow: 0 0 0 1px rgba(91,140,255,.12),
+                        0 0 25px rgba(91,140,255,.1);
+            transform: translateY(-3px);
+        }
+
+        .selection-card .card-icon {
+            position: relative;
+            z-index: 1;
+            width: 43px;
+            height: 43px;
+            display: grid;
+            place-items: center;
+            border-radius: 14px;
+            background: rgba(255,255,255,.055);
+            color: #9db7ff;
+            font-size: 22px;
+            transition: .25s ease;
+        }
+
+        .selection-card.active .card-icon {
+            color: white;
+            background: linear-gradient(135deg, var(--blue), var(--purple));
+            box-shadow: 0 5px 20px rgba(91,140,255,.25);
+        }
+
+        .selection-card .card-label {
+            position: relative;
+            z-index: 1;
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .selection-card .check-icon {
+            position: absolute;
+            top: 9px;
+            left: 9px;
+            opacity: 0;
+            color: #78a3ff;
+            transition: .2s ease;
+        }
+
+        .selection-card.active .check-icon {
+            opacity: 1;
+        }
+
+        /* Hidden department section */
+        #departmentSection {
+            display: none;
+        }
+
+        #departmentSection.visible {
+            display: block;
+            animation: fadeUp .45s ease both;
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(15px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Summary */
+        .summary-box {
+            padding: 20px;
+            margin-top: 5px;
+            border: 1px solid rgba(91,140,255,.18);
+            border-radius: 19px;
+            background: rgba(91,140,255,.045);
+        }
+
+        .summary-heading {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            margin-bottom: 15px;
+            font-size: 14px;
+            font-weight: 800;
+        }
+
+        .summary-heading i {
+            color: #8db1ff;
+            font-size: 18px;
+        }
+
+        .summary-items {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 12px;
+        }
+
+        .summary-item {
+            min-width: 0;
+            padding: 12px;
+            border-radius: 12px;
+            background: rgba(255,255,255,.035);
+        }
+
+        .summary-item small {
+            display: block;
+            color: var(--muted);
+            font-size: 11px;
+            margin-bottom: 5px;
+        }
+
+        .summary-item strong {
+            display: block;
+            overflow-wrap: anywhere;
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .summary-item strong.empty {
+            color: #69738f;
+            font-weight: 500;
+        }
+
+        /* Continue button */
+        .continue-btn {
+            position: relative;
+            width: 100%;
+            min-height: 55px;
+            margin-top: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            border: 0;
+            border-radius: 15px;
+            color: white;
+            background: linear-gradient(100deg, #477bff, #8655e8);
+            box-shadow: 0 10px 30px rgba(91,100,255,.2);
+            font-family: inherit;
+            font-size: 15px;
+            font-weight: 800;
+            transition: transform .25s ease, opacity .25s ease, box-shadow .25s ease;
+        }
+
+        .continue-btn:not(:disabled):hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(91,100,255,.32);
+        }
+
+        .continue-btn:disabled {
+            cursor: not-allowed;
+            opacity: .4;
+            box-shadow: none;
+        }
+
+        .continue-btn i {
+            transition: transform .25s ease;
+        }
+
+        .continue-btn:not(:disabled):hover i {
+            transform: translateX(-5px);
+        }
+
+        .helper-text {
+            margin-top: 12px;
+            text-align: center;
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        /* Benefits */
+        .benefits {
+            padding: 25px 0 70px;
+        }
+
+        .benefit-card {
+            height: 100%;
+            padding: 23px 17px;
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            background: rgba(255,255,255,.025);
+            transition: .3s ease;
+        }
+
+        .benefit-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(91,140,255,.35);
+        }
+
+        .benefit-card i {
+            display: inline-block;
+            margin-bottom: 14px;
+            color: #8daeff;
+            font-size: 25px;
+        }
+
+        .benefit-card h4 {
+            font-size: 14px;
+            font-weight: 800;
+            margin-bottom: 8px;
+        }
+
+        .benefit-card p {
+            color: var(--muted);
+            font-size: 12px;
+            line-height: 1.9;
+            margin: 0;
+        }
+
+        /* Footer */
+        footer {
+            padding: 22px 0;
+            border-top: 1px solid rgba(255,255,255,.06);
+            text-align: center;
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        /* Toast message */
+        .toast-message {
+            position: fixed;
+            bottom: 25px;
+            left: 50%;
+            z-index: 9999;
+            width: max-content;
+            max-width: calc(100% - 30px);
+            padding: 13px 20px;
+            border: 1px solid rgba(91,140,255,.35);
+            border-radius: 14px;
+            color: white;
+            background: #171e38;
+            box-shadow: 0 10px 40px rgba(0,0,0,.35);
+            opacity: 0;
+            transform: translate(-50%, 20px);
+            pointer-events: none;
+            transition: .3s ease;
+            font-size: 13px;
+        }
+
+        .toast-message.show {
+            opacity: 1;
+            transform: translate(-50%, 0);
+        }
+
+        /* Responsive */
+        @media (max-width: 576px) {
+            .hero {
+                padding-top: 48px;
+            }
+
+            .hero-visual {
+                width: 140px;
+                height: 140px;
+            }
+
+            .hero-book {
+                width: 88px;
+                height: 100px;
+            }
+
+            .hero-book i {
+                font-size: 37px;
+            }
+
+            .selection-panel {
+                padding: 20px 15px;
+                border-radius: 22px;
+            }
+
+            .selection-card {
+                min-height: 105px;
+                padding: 14px 7px;
+            }
+
+            .selection-card .card-label {
+                font-size: 12px;
+            }
+
+            .summary-items {
+                grid-template-columns: 1fr;
+            }
+
+            .summary-item {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                gap: 12px;
+            }
+
+            .summary-item small {
+                margin-bottom: 0;
+            }
+
+            .step-title small {
+                font-size: 10px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: .01ms !important;
+                animation-iteration-count: 1 !important;
+                scroll-behavior: auto !important;
+                transition-duration: .01ms !important;
+            }
+        }
+    </style>
 </head>
+
 <body>
 
-  <!--navbar -->
-<nav class="navbar navbar-expand-sm bg-dark navbar-dark d-flex sticky-top">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="https://www.facebook.com/share/14HGpRP3xH2/">
-         <img src="logo.png" alt="Avatar Logo" style="width:40px;" class="rounded-pill"> 
-           <span>Captin Dev</span>
-    </a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse justify-content-end" id="collapsibleNavbar">
-      <ul class="navbar-nav">
-        <li class="nav-item">
-          <a class="nav-link" href="#projects">Projects</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#About">About Me</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#Contact">Contact Me</a>
-        </li>
-      </ul>
-    </div>
-  </div>
-</nav>
- 
-<!-- Carousel -->
-<div id="mainCarousel" class="carousel slide my-2 mx-2" data-bs-ride="carousel"style="max-width: 200vw; overflow: hidden;">
-  <div class="carousel-indicators ">
-    <button type="button" data-bs-target="#mainCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-    <button type="button" data-bs-target="#mainCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
-    <button type="button" data-bs-target="#mainCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
-  </div>
-  <div class="carousel-inner">
-    <div class="carousel-item active">
-      <img src="https://images.pexels.com/photos/169573/pexels-photo-169573.jpeg" class="d-block w-100" alt="Laptop on desk">
-    </div>
-    <div class="carousel-item">
-      <img src="https://images.pexels.com/photos/3182773/pexels-photo-3182773.jpeg" class="d-block w-100" alt="Team working on Macbook">
-    </div>
-    <div class="carousel-item">
-      <img src="https://images.pexels.com/photos/3861963/pexels-photo-3861963.jpeg" class="d-block w-100" alt="Female developer coding">
-    </div>
-  </div>
-  <button class="carousel-control-prev" type="button" data-bs-target="#mainCarousel" data-bs-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Previous</span>
-  </button>
-  <button class="carousel-control-next" type="button" data-bs-target="#mainCarousel" data-bs-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Next</span>
-  </button>
-</div>
+    <div class="background-grid"></div>
+    <div class="orb orb-one"></div>
+    <div class="orb orb-two"></div>
 
-  <!--Featured projects-->
-<main class="container py-5" id="projects">
-  <div class="mb-4">
-    <h3 class="fw-bold">Featured projects</h3>
-    <p class="text-muted">A few recent builds. Click through for details.</p>
-  </div>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="container d-flex align-items-center justify-content-between">
+            <a class="brand" href="#">
+                <span class="brand-icon">
+                    <i class="bi bi-journal-bookmark-fill"></i>
+                </span>
+                <span>Copy Center </span>
+            </a>
 
-    <!--cards-->
-<div class="row g-4">
-      <div class="col-12 col-md-6 col-lg-3">
-        <div class="card">
-          <img src="https://picsum.photos/seed/p1/800/400" class="card-img-top" alt="...">
-          <div class="card-body d-flex flex-column">
-            <h5 class="card-title">Lifting Inspection Portal</h5>
-            <p class="card-text">Multi-tenant dashboard with reports, role-based access, and offline-first inspections.</p>
-            <a href="#" class="btn btn-outline-primary mt-auto">View Project</a>
-          </div>
+            <span class="navbar-note d-none d-sm-inline">
+                <i class="bi bi-mortarboard me-1"></i>
+                كلية تكنولوجيا العلوم الصحية التطبيقية
+            </span>
         </div>
-      </div>
+    </nav>
 
-      <div class="col-12 col-md-6 col-lg-3">
-        <div class="card h-100">
-          <img src="https://picsum.photos/seed/p2/800/400" class="card-img-top" alt="...">
-          <div class="card-body d-flex flex-column">
-            <h5 class="card-title">Courses Academy</h5>
-            <p class="card-text">.NET 9 + Onion Architecture app with Identity, payments, and instructor tooling.</p>
-            <a href="#" class="btn btn-outline-primary mt-auto">View Project</a>
-          </div>
-        </div>
-      </div>
+    <!-- Hero -->
+    <header class="hero text-center">
+        <div class="container">
 
-      <div class="col-12 col-md-6 col-lg-3">
-        <div class="card h-100">
-          <img src="https://picsum.photos/seed/p3/800/400" class="card-img-top" alt="...">
-          <div class="card-body d-flex flex-column">
-            <h5 class="card-title">Legal Matters Connector</h5>
-            <p class="card-text">Sync engine linking M365, NetDocuments, and CRM with audit logs and retries.</p>
-            <a href="#" class="btn btn-outline-primary mt-auto">View Project</a>
-          </div>
-        </div>
-      </div>
+            <div class="hero-badge">
+                <span class="status-dot"></span>
+                كل محاضراتك في مكان واحد
+            </div>
 
-      <div class="col-12 col-md-6 col-lg-3">
-        <div class="card h-100">
-          <img src="https://picsum.photos/seed/p4/800/400" class="card-img-top" alt="...">
-          <div class="card-body d-flex flex-column">
-            <h5 class="card-title">Contacts Intelligence</h5>
-            <p class="card-text">Search + pagination over millions of records with server-side filtering.</p>
-            <a href="#" class="btn btn-outline-primary mt-auto">View Project</a>
-          </div>
-        </div>
-      </div>
-    </div>
+            <h1>
+                مذاكرتك تبدأ من<br>
+                <span class="gradient-text">الاختيار الصح</span>
+            </h1>
 
-    <!-- About -->
-     <div class="row mt-5 g-4" id="About">
-      <div class="col-lg-8">
-        <div class="border rounded p-4 bg-white">
-          <h4>About Me</h4>
-          <p class="text-muted mb-0">15+ years building enterprise apps with .NET, SQL Server, and modern front-end stacks. I mentor teams, design architectures and ship maintainable software.</p>
-        </div>
-      </div>
-      <div class="col-lg-4 mt-2" id="Contact">
-        <div class="border rounded p-3 bg-white">
-          <h5>Get in Touch</h5>
-          <p class="text-muted small">Available for consulting, training, and architecture<br>reviews.</p>
-          <a href="mailto:hello@example.com" class="btn btn-success w-100">Email Me</a>
-        </div>
-      </div>
-    </div>
-  </main>
+            <p class="hero-description">
+                اختار فرقتك الدراسية وحدد بياناتك عشان توصل للملازم
+                والمحاضرات الخاصة بيك بسهولة.
+            </p>
 
-    <!-- Footer -->
-    <footer class="py-3 border-top bg-white">
-    <div class="container d-flex justify-content-between flex-wrap">
-      <p class="mb-0 text-muted">&copy; 2025 Captin Dev</p>
-      <p class="mb-0 text-muted">Built with Bootstrap 5</p>
-    </div>
+            <div class="hero-visual">
+                <div class="hero-book">
+                    <i class="bi bi-journal-richtext"></i>
+                </div>
+            </div>
+
+        </div>
+    </header>
+
+    <!-- Main -->
+    <main class="main-content">
+        <div class="container">
+
+            <div class="selection-panel">
+
+                <div class="panel-heading">
+                    <div class="heading-icon">
+                        <i class="bi bi-sliders2"></i>
+                    </div>
+                    <div>
+                        <h2>حدد بياناتك الدراسية</h2>
+                        <p>اختار البيانات المطلوبة عشان نجهزلك المحتوى المناسب.</p>
+                    </div>
+                </div>
+
+                <!-- Progress -->
+                <div class="progress-area">
+                    <div class="progress-labels">
+                        <span id="progressText">لسه هنبدأ</span>
+                        <span id="progressPercent">0%</span>
+                    </div>
+
+                    <div
+                        class="progress-track"
+                        role="progressbar"
+                        aria-label="تقدم الاختيارات"
+                        aria-valuemin="0"
+                        aria-valuemax="100"
+                        aria-valuenow="0"
+                        id="progressBar"
+                    >
+                        <div class="progress-fill" id="progressFill"></div>
+                    </div>
+                </div>
+
+                <!-- STEP 1: YEAR -->
+                <section class="step-section" id="yearSection">
+
+                    <div class="step-title">
+                        <span class="step-number">01</span>
+                        <h3>اختار الفرقة الدراسية</h3>
+                        <small>مطلوب</small>
+                    </div>
+
+                    <div class="row g-3" id="yearOptions">
+
+                        <div class="col-6 col-md-3">
+                            <button type="button"
+                                class="selection-card"
+                                data-group="year"
+                                data-value="الأولى">
+                                <i class="bi bi-check-circle-fill check-icon"></i>
+                                <span class="card-icon"><i class="bi bi-1-circle"></i></span>
+                                <span class="card-label">الفرقة الأولى</span>
+                            </button>
+                        </div>
+
+                        <div class="col-6 col-md-3">
+                            <button type="button"
+                                class="selection-card"
+                                data-group="year"
+                                data-value="الثانية">
+                                <i class="bi bi-check-circle-fill check-icon"></i>
+                                <span class="card-icon"><i class="bi bi-2-circle"></i></span>
+                                <span class="card-label">الفرقة الثانية</span>
+                            </button>
+                        </div>
+
+                        <div class="col-6 col-md-3">
+                            <button type="button"
+                                class="selection-card"
+                                data-group="year"
+                                data-value="الثالثة">
+                                <i class="bi bi-check-circle-fill check-icon"></i>
+                                <span class="card-icon"><i class="bi bi-3-circle"></i></span>
+                                <span class="card-label">الفرقة الثالثة</span>
+                            </button>
+                        </div>
+
+                        <div class="col-6 col-md-3">
+                            <button type="button"
+                                class="selection-card"
+                                data-group="year"
+                                data-value="الرابعة">
+                                <i class="bi bi-check-circle-fill check-icon"></i>
+                                <span class="card-icon"><i class="bi bi-4-circle"></i></span>
+                                <span class="card-label">الفرقة الرابعة</span>
+                            </button>
+                        </div>
+
+                    </div>
+                </section>
+
+                <!-- STEP 2: DEPARTMENT
+                     Hidden until a year is selected.
+                     Hidden completely for first year. -->
+                <section class="step-section" id="departmentSection">
+
+                    <div class="step-title">
+                        <span class="step-number">02</span>
+                        <h3>اختار الشعبة</h3>
+                        <small>مطلوب للفرق الثانية والثالثة والرابعة</small>
+                    </div>
+
+                    <div class="row g-3" id="departmentOptions">
+
+                        <div class="col-6 col-md-4">
+                            <button type="button"
+                                class="selection-card"
+                                data-group="department"
+                                data-value="مختبرات">
+                                <i class="bi bi-check-circle-fill check-icon"></i>
+                                <span class="card-icon"><i class="bi bi-droplet-half"></i></span>
+                                <span class="card-label">مختبرات</span>
+                            </button>
+                        </div>
+
+                        <div class="col-6 col-md-4">
+                            <button type="button"
+                                class="selection-card"
+                                data-group="department"
+                                data-value="رعاية">
+                                <i class="bi bi-check-circle-fill check-icon"></i>
+                                <span class="card-icon"><i class="bi bi-heart-pulse"></i></span>
+                                <span class="card-label">رعاية</span>
+                            </button>
+                        </div>
+
+                        <div class="col-6 col-md-4">
+                            <button type="button"
+                                class="selection-card"
+                                data-group="department"
+                                data-value="أشعة">
+                                <i class="bi bi-check-circle-fill check-icon"></i>
+                                <span class="card-icon"><i class="bi bi-radioactive"></i></span>
+                                <span class="card-label">أشعة</span>
+                            </button>
+                        </div>
+
+                        <div class="col-6 col-md-4">
+                            <button type="button"
+                                class="selection-card"
+                                data-group="department"
+                                data-value="أسنان">
+                                <i class="bi bi-check-circle-fill check-icon"></i>
+                                <span class="card-icon"><i class="bi bi-emoji-smile"></i></span>
+                                <span class="card-label">أسنان</span>
+                            </button>
+                        </div>
+
+                        <div class="col-6 col-md-4">
+                            <button type="button"
+                                class="selection-card"
+                                data-group="department"
+                                data-value="بصريات">
+                                <i class="bi bi-check-circle-fill check-icon"></i>
+                                <span class="card-icon"><i class="bi bi-eye"></i></span>
+                                <span class="card-label">بصريات</span>
+                            </button>
+                        </div>
+
+                        <div class="col-6 col-md-4">
+                            <button type="button"
+                                class="selection-card"
+                                data-group="department"
+                                data-value="أجهزة طبية">
+                                <i class="bi bi-check-circle-fill check-icon"></i>
+                                <span class="card-icon"><i class="bi bi-cpu"></i></span>
+                                <span class="card-label">أجهزة طبية</span>
+                            </button>
+                        </div>
+
+                    </div>
+                </section>
+
+                <!-- STEP 3: PICKUP BRANCH -->
+                <section class="step-section" id="branchSection">
+
+                    <div class="step-title">
+                        <span class="step-number" id="branchStepNumber">02</span>
+                        <h3>اختار فرع الاستلام</h3>
+                        <small>مطلوب</small>
+                    </div>
+
+                    <div class="row g-3" id="branchOptions">
+
+                        <!-- غيّر أسماء الفروع حسب فروع مكتبتك -->
+
+                        <div class="col-12 col-md-4">
+                            <button type="button"
+                                class="selection-card"
+                                data-group="branch"
+                                data-value="الفرع الأول">
+                                <i class="bi bi-check-circle-fill check-icon"></i>
+                                <span class="card-icon"><i class="bi bi-shop"></i></span>
+                                <span class="card-label">الفرع الأول</span>
+                            </button>
+                        </div>
+
+                        <div class="col-12 col-md-4">
+                            <button type="button"
+                                class="selection-card"
+                                data-group="branch"
+                                data-value="الفرع الثاني">
+                                <i class="bi bi-check-circle-fill check-icon"></i>
+                                <span class="card-icon"><i class="bi bi-geo-alt"></i></span>
+                                <span class="card-label">الفرع الثاني</span>
+                            </button>
+                        </div>
+
+                        <div class="col-12 col-md-4">
+                            <button type="button"
+                                class="selection-card"
+                                data-group="branch"
+                                data-value="الفرع الثالث">
+                                <i class="bi bi-check-circle-fill check-icon"></i>
+                                <span class="card-icon"><i class="bi bi-building"></i></span>
+                                <span class="card-label">الفرع الثالث</span>
+                            </button>
+                        </div>
+
+                    </div>
+                </section>
+
+                <!-- Selection summary -->
+                <div class="summary-box">
+
+                    <div class="summary-heading">
+                        <i class="bi bi-clipboard-check"></i>
+                        ملخص اختياراتك
+                    </div>
+
+                    <div class="summary-items">
+
+                        <div class="summary-item">
+                            <small>الفرقة الدراسية</small>
+                            <strong id="summaryYear" class="empty">لم يتم الاختيار</strong>
+                        </div>
+
+                        <div class="summary-item" id="summaryDepartmentItem">
+                            <small>الشعبة</small>
+                            <strong id="summaryDepartment" class="empty">لم يتم الاختيار</strong>
+                        </div>
+
+                        <div class="summary-item">
+                            <small>فرع الاستلام</small>
+                            <strong id="summaryBranch" class="empty">لم يتم الاختيار</strong>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Continue -->
+                <button type="button" class="continue-btn" id="continueBtn" disabled>
+                    <span id="continueText">كمّل اختياراتك الأول</span>
+                    <i class="bi bi-arrow-left"></i>
+                </button>
+
+                <p class="helper-text" id="helperText">
+                    اختار الفرقة الدراسية عشان تبدأ.
+                </p>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- Benefits -->
+    <section class="benefits">
+        <div class="container">
+            <div class="row g-3">
+
+                <div class="col-12 col-md-4">
+                    <div class="benefit-card">
+                        <i class="bi bi-journal-check"></i>
+                        <h4>محاضراتك بسهولة</h4>
+                        <p>اختار بياناتك عشان توصل للمحتوى الخاص بفرقتك وشعبتك.</p>
+                    </div>
+                </div>
+
+                <div class="col-12 col-md-4">
+                    <div class="benefit-card">
+                        <i class="bi bi-lightning-charge"></i>
+                        <h4>اختيار سريع</h4>
+                        <p>خطوات بسيطة تساعدك توصل للملازم المطلوبة من غير تعقيد.</p>
+                    </div>
+                </div>
+
+                <div class="col-12 col-md-4">
+                    <div class="benefit-card">
+                        <i class="bi bi-shop"></i>
+                        <h4>حدد مكان الاستلام</h4>
+                        <p>اختار الفرع المناسب ليك قبل الانتقال للخطوة التالية.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <i class="bi bi-journal-bookmark me-1"></i>
+            مكتبة الكلية — كل محاضراتك في مكان واحد
+        </div>
     </footer>
-     
-     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js">        
-     </script>
+
+    <div class="toast-message" id="toastMessage" role="status"></div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+      
+const selections = {
+    year: "",
+    department: "",
+    branch: ""
+};
+
+const yearNames = ["الأولى", "الثانية", "الثالثة", "الرابعة"];
+
+const departmentSection = document.getElementById("departmentSection");
+const summaryDepartmentItem = document.getElementById("summaryDepartmentItem");
+const summaryDepartment = document.getElementById("summaryDepartment");
+const summaryYear = document.getElementById("summaryYear");
+const summaryBranch = document.getElementById("summaryBranch");
+
+const progressFill = document.getElementById("progressFill");
+const progressText = document.getElementById("progressText");
+const progressPercent = document.getElementById("progressPercent");
+const progressBar = document.getElementById("progressBar");
+
+const continueBtn = document.getElementById("continueBtn");
+const continueText = document.getElementById("continueText");
+const helperText = document.getElementById("helperText");
+const branchStepNumber = document.getElementById("branchStepNumber");
+
+const toastMessage = document.getElementById("toastMessage");
+
+// الفروع المتاحة لكل قسم
+const branchRules = {
+    "بصريات": ["الفرع الأول"],
+    "أجهزة طبية": ["الفرع الأول"],
+    "أشعة": ["الفرع الثاني"],
+    "مختبرات": ["الفرع الثاني"],
+    "رعاية": ["الفرع الثالث"],
+    "أسنان": ["الفرع الثالث"]
+};
+
+// عناصر اختيار الفروع
+const branchCards = document.querySelectorAll(
+    '.selection-card[data-group="branch"]'
+);
+
+// إظهار الفروع المناسبة للقسم
+function updateBranches(department) {
+    const allowedBranches = branchRules[department] || [];
+
+    branchCards.forEach(card => {
+        const branchValue = card.dataset.value;
+        const isAllowed = allowedBranches.includes(branchValue);
+
+        // إظهار أو إخفاء كارت الفرع
+        const wrapper = card.closest(".col, [class*='col-']") || card;
+        wrapper.hidden = !isAllowed;
+
+        // لو الفرع مش مناسب، إلغاء اختياره
+        if (!isAllowed && selections.branch === branchValue) {
+            selections.branch = "";
+            card.classList.remove("active");
+            card.setAttribute("aria-pressed", "false");
+        }
+    });
+
+    // تحديث الملخص بعد تغيير الفروع
+    updateInterface();
+}
+
+// =========================
+// Selection cards
+// =========================
+
+document.querySelectorAll(".selection-card").forEach(card => {
+    card.addEventListener("click", () => {
+        const group = card.dataset.group;
+        const value = card.dataset.value;
+
+        // تفعيل الكارت المختار
+        document.querySelectorAll(
+            `.selection-card[data-group="${group}"]`
+        ).forEach(item => {
+            item.classList.remove("active");
+            item.setAttribute("aria-pressed", "false");
+        });
+
+        card.classList.add("active");
+        card.setAttribute("aria-pressed", "true");
+
+        selections[group] = value;
+
+        // عند تغيير الفرقة
+        if (group === "year") {
+            handleYearChange(value);
+        }
+
+        // عند تغيير القسم
+        if (group === "department") {
+            updateBranches(value);
+        }
+
+        updateInterface();
+    });
+});
+
+// =========================
+// Handle year selection
+// =========================
+
+function handleYearChange(year) {
+    if (year === "الأولى") {
+        // الفرقة الأولى لا تحتاج إلى قسم
+        departmentSection.classList.remove("visible");
+        selections.department = "";
+
+        // إلغاء اختيار القسم السابق
+        document.querySelectorAll(
+            '.selection-card[data-group="department"]'
+        ).forEach(card => {
+            card.classList.remove("active");
+            card.setAttribute("aria-pressed", "false");
+        });
+
+        summaryDepartmentItem.style.display = "none";
+        branchStepNumber.textContent = "02";
+
+        // إظهار كل الفروع لأن الفرقة الأولى لا تحتاج إلى قسم
+        branchCards.forEach(card => {
+            const wrapper = card.closest(".col, [class*='col-']") || card;
+            wrapper.hidden = false;
+        });
+
+        // إلغاء الفرع السابق عند تغيير الفرقة
+        selections.branch = "";
+        branchCards.forEach(card => {
+            card.classList.remove("active");
+            card.setAttribute("aria-pressed", "false");
+        });
+
+    } else {
+        // باقي الفرق تحتاج إلى اختيار قسم
+        departmentSection.classList.add("visible");
+        summaryDepartmentItem.style.display = "";
+        branchStepNumber.textContent = "03";
+
+        // لو فيه قسم مختار بالفعل، طبّق قواعد فروعه
+        if (selections.department) {
+            updateBranches(selections.department);
+        } else {
+            // مفيش قسم مختار، اعرض كل الفروع مؤقتًا
+            branchCards.forEach(card => {
+                const wrapper = card.closest(".col, [class*='col-']") || card;
+                wrapper.hidden = false;
+            });
+
+            selections.branch = "";
+        }
+    }
+
+    updateInterface();
+}
+
+// =========================
+// Update summary and progress
+// =========================
+
+function updateSummaryItem(element, value) {
+    if (value) {
+        element.textContent = value;
+        element.classList.remove("empty");
+    } else {
+        element.textContent = "لم يتم الاختيار";
+        element.classList.add("empty");
+    }
+}
+
+function getRequiredSelections() {
+    // الفرقة الأولى تحتاج إلى الفرقة والفرع فقط
+    if (selections.year === "الأولى") {
+        return ["year", "branch"];
+    }
+
+    // باقي الفرق تحتاج إلى الفرقة والقسم والفرع
+    return ["year", "department", "branch"];
+}
+
+function updateInterface() {
+    updateSummaryItem(summaryYear, selections.year);
+    updateSummaryItem(summaryDepartment, selections.department);
+    updateSummaryItem(summaryBranch, selections.branch);
+
+    const required = getRequiredSelections();
+    const completed = required.filter(
+        key => selections[key] !== ""
+    ).length;
+
+    const percentage = Math.round(
+        (completed / required.length) * 100
+    );
+
+    progressFill.style.width = percentage + "%";
+    progressPercent.textContent = percentage + "%";
+    progressBar.setAttribute("aria-valuenow", percentage);
+
+    if (percentage === 0) {
+        progressText.textContent = "لسه هنبدأ";
+    } else if (percentage < 100) {
+        progressText.textContent = "أنت ماشي صح، كمّل";
+    } else {
+        progressText.textContent = "تمام، خلصت اختياراتك";
+    }
+
+    const isComplete = completed === required.length;
+
+    continueBtn.disabled = !isComplete;
+
+    if (isComplete) {
+        continueText.textContent = "عرض المحاضرات والملازم";
+        helperText.textContent = "كل بياناتك جاهزة، تقدر تكمل دلوقتي.";
+    } else if (!selections.year) {
+        continueText.textContent = "كمّل اختياراتك الأول";
+        helperText.textContent = "ابدأ باختيار الفرقة الدراسية.";
+    } else if (
+        selections.year !== "الأولى" &&
+        !selections.department
+    ) {
+        continueText.textContent = "اختار القسم";
+        helperText.textContent = "حدد القسم الخاص بيك عشان تكمل.";
+    } else {
+        continueText.textContent = "اختار فرع الاستلام";
+        helperText.textContent = "فاضلك تختار فرع الاستلام.";
+    }
+}
+
+// =========================
+// Continue button
+// =========================
+
+continueBtn.addEventListener("click", () => {
+    const required = getRequiredSelections();
+
+    const isComplete = required.every(
+        key => selections[key] !== ""
+    );
+
+    if (!isComplete) {
+        showToast("كمّل الاختيارات المطلوبة الأول.");
+        return;
+    }
+
+    const params = new URLSearchParams();
+
+    params.set("year", selections.year);
+    params.set("branch", selections.branch);
+
+    if (selections.year !== "الأولى") {
+        params.set("department", selections.department);
+    }
+
+    // فعّل السطر التالي بعد تجهيز صفحة lectures.html
+    // window.location.href = "lectures.html?" + params.toString();
+
+    showToast(
+        "اختياراتك اتسجلت. صفحة المحاضرات لسه محتاجة تتعمل."
+    );
+
+    console.log("Student selections:", {
+        year: selections.year,
+        department: selections.department || null,
+        branch: selections.branch
+    });
+
+    console.log("Next page parameters:", params.toString());
+});
+
+// =========================
+// Toast message
+// =========================
+
+let toastTimer;
+
+function showToast(message) {
+    toastMessage.textContent = message;
+    toastMessage.classList.add("show");
+
+    clearTimeout(toastTimer);
+
+    toastTimer = setTimeout(() => {
+        toastMessage.classList.remove("show");
+    }, 3000);
+}
+
+// =========================
+// Initial state
+// =========================
+
+updateInterface();
+
+    </script>
+
 </body>
 </html>
